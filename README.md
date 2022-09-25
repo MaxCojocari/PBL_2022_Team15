@@ -1,4 +1,4 @@
-# PBL_sem2
+# PBL_sem1_2022
 This is the repository for PBL project, sem.1 2022
 
 If you work for the first time with this repository, clone it! 
