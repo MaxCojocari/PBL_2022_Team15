@@ -14,6 +14,6 @@ If you already done it, use:
 
 It's highly recomended to create a distinct branch in order to not polute `main` with unexpected changes. Use `git checkout -b <your_branch>` for this purpose.
 
-Please, if you don't know how to manipulate this repo, don't make a mess from it!!!
+Please, if you don't know how to manipulate this repo, don't make a mess out of it!!!
 
 For other questions or sweet thoughts please ask the owner of this repo))
