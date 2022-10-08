@@ -4,7 +4,7 @@ This is the repository for PBL project, sem.1 2022
 If you work for the first time with this repository, clone it! 
 
 ```
-git clone git@github.com:MaxCojocari/PBL_sem2.git
+git@github.com:MaxCojocari/PBL_2022_Team15.git
 ```
 
 If you already done it, use:
