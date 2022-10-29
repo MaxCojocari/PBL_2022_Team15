@@ -11,8 +11,8 @@ export const MentorSchema = new mongoose.Schema({
 });
 
 
-export interface Mentor{
-    id: number;
+export interface Mentor extends mongoose.Document{
+    id: string;
     firstName: string;
     lastName: string;
     email: string;

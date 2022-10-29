@@ -14,3 +14,20 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/mentors
+
+###
+
+GET http://localhost:3000/mentors/635d21af8875c5899eb9f628
+
+###
+
+DELETE http://localhost:3000/mentors/635d239e727ce1c9df73869b
+
+###
+
+PATCH http://localhost:3000/mentors/635d22ccefa15dc5eafa2e91
+Content-Type: application/json
+
+{
+    "lastName": "Alex"
+}
