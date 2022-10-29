@@ -1,0 +1,16 @@
+POST http://localhost:3000/mentors
+Content-Type: application/json
+
+{
+    "firstName": "Bajenov",
+    "lastName": "Alex",
+    "email": "alex@gmail.com",
+    "linkedinURL": "123uio00..",
+    "twitterURL": "dsf",
+    "industries": ["fdsd"],
+    "accelerators": ["fdsgdf"]
+}
+
+###
+
+GET http://localhost:3000/mentors
