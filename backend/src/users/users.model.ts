@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
+import * as mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+export const UserSchema = new mongoose.Schema({
   surname: {
     type: String,
     required: true
@@ -22,4 +21,10 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("User", userSchema);
+export interface User extends mongoose.Document {
+  _id: string;
+  surname: string;
+  name: string;
+  email: string;
+  password: string;
+}
