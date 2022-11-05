@@ -60,7 +60,6 @@ export class AuthController {
     }  
   }
   
-  // get
   @UseGuards(JwtAuthGuard)
   @Get('/protected')
   getHello(): string {
