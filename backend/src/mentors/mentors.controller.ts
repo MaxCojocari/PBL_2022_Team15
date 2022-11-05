@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
 
-
 @Controller('mentors')
 export class MentorsController {
 
@@ -16,19 +15,19 @@ export class MentorsController {
     @Body('twitterURL') twitter: string,
     @Body('industries') ind: string,
     @Body('accelerators') acc: string,
-  ) {
+  ): Promise<{ id: string }> {
     const mentorId = await this.mentorService.insertMentor(fN, lN, email, linkedin, twitter, ind, acc);
     return { id: mentorId };
   }
 
   @Get()
-  async getAllMentors() {
+  async getAllMentors(): Promise<any> {
     const mentors = await this.mentorService.getMentors();
     return mentors;
   }
 
   @Get(':id')
-  getOneMentor(@Param('id') mentorId: string) {
+  getOneMentor(@Param('id') mentorId: string): any {
     return this.mentorService.getSingleMentor(mentorId);
   }
 
@@ -42,13 +41,16 @@ export class MentorsController {
     @Body('twitterURL') twitter: string,
     @Body('industries') ind: string[],
     @Body('accelerators') acc: string[],
-  ) {
+  ): Promise<any> {
     await this.mentorService.modifyMentor(mentorId, fN, lN, email, linkedin, twitter, ind, acc);
-    return null;
   }
 
+  // TODO: add getByAccelerator, getByIndustry, getFirstMentors (for example, first three) requests
+  // and protect them using @UseGuards(JwtAuthGuard)
+  // getAllMentors should also be protected with JwtAuthGuard
+
   @Delete(':id')
-  async removeMentor(@Param('id') mentorId: string) {
+  async removeMentor(@Param('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
     return result;
   }
