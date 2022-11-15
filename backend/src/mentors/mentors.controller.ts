@@ -1,9 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
 
 import { UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { MentorDTO } from "./dto/mentor.dto";
+import AccDTO from "./dto/acc.dto";
+import IndDTO from "./dto/ind.dto";
+import LimitDTO from "src/auth/dto/limit.dto";
 
 @Controller('mentors')
 export class MentorsController {
@@ -43,10 +46,6 @@ export class MentorsController {
                                                     mentorData.accelerators);
   }
 
-  // TODO: add getByAccelerator, getByIndustry, getFirstMentors (for example, first three) requests
-  // and protect them using @UseGuards(JwtAuthGuard)
-  // getAllMentors should also be protected with JwtAuthGuard
-
   @Delete('/delete')
   async removeMentor(@Param('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
@@ -61,20 +60,19 @@ export class MentorsController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/acc')
-  async getByAcc(@Body('accelerator') acc: string): Promise<any> {
-    return this.mentorService.getByAccelerator(acc);
+  async getByAcc(@Body() accDTO: AccDTO): Promise<any> {
+    return this.mentorService.getByAccelerator(accDTO.accName);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/ind')
-  async getByInd(@Body('industry') ind: string): Promise<any> {
-    return this.mentorService.getByIndustry(ind);
+  async getByInd(@Body() indDTO: IndDTO): Promise<any> {
+    return this.mentorService.getByIndustry(indDTO.indName);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/limit')
-  async getFirst(@Body('lim') limit: number): Promise<any> {
-    return this.mentorService.getFirstMentors(limit);
-  }
-  
+  async getFirst(@Body() limitDTO: LimitDTO): Promise<any> {
+    return this.mentorService.getFirstMentors(limitDTO.limitNumber);
+  } 
 }
