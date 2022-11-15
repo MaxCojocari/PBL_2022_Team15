@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
 
 import { UseGuards } from "@nestjs/common";
@@ -59,19 +59,19 @@ export class MentorsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/acc')
+  @Post('/acc')
   async getByAcc(@Body() accDTO: AccDTO): Promise<any> {
     return this.mentorService.getByAccelerator(accDTO.accName);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/ind')
+  @Post('/ind')
   async getByInd(@Body() indDTO: IndDTO): Promise<any> {
     return this.mentorService.getByIndustry(indDTO.indName);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('/limit')
+  @Post('/limit')
   async getFirst(@Body() limitDTO: LimitDTO): Promise<any> {
     return this.mentorService.getFirstMentors(limitDTO.limitNumber);
   } 
