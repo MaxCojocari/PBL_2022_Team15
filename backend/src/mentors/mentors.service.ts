@@ -9,7 +9,7 @@ export class MentorsService {
   constructor(@InjectModel('Mentor') private readonly mentorModel: Model<Mentor>) {
   };
 
-  async insertMentor(fN: string, lN: string, email: string, linkedin: string, twitter: string, ind: string, acc: string) {
+  async insertMentor(fN: string, lN: string, email: string, linkedin: string, twitter: string, ind: string[], acc: string[]) {
     const newMentor = new this.mentorModel({
       firstName: fN,
       lastName: lN,

@@ -3,6 +3,7 @@ import { MentorsService } from "./mentors.service";
 
 import { UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { MentorDTO } from "./dto/mentor.dto";
 
 @Controller('mentors')
 export class MentorsController {
@@ -11,15 +12,15 @@ export class MentorsController {
 
   @Post('/add')
   async addMentor(
-    @Body('firstName') fN: string,
-    @Body('lastName') lN: string,
-    @Body('email') email: string,
-    @Body('linkedinURL') linkedin: string,
-    @Body('twitterURL') twitter: string,
-    @Body('industries') ind: string,
-    @Body('accelerators') acc: string,
+    @Body() mentorData: MentorDTO
   ): Promise<{ id: string }> {
-    const mentorId = await this.mentorService.insertMentor(fN, lN, email, linkedin, twitter, ind, acc);
+    const mentorId = await this.mentorService.insertMentor(mentorData.firstName,
+                                                          mentorData.lastName,
+                                                          mentorData.email,
+                                                          mentorData.linkedinURL,
+                                                          mentorData.twitterURL,
+                                                          mentorData.industries,
+                                                          mentorData.accelerators);
     return { id: mentorId };
   }
 
@@ -31,15 +32,15 @@ export class MentorsController {
   @Patch('/update')
   async updateMentor(
     @Param('id') mentorId: string,
-    @Body('firstName') fN: string,
-    @Body('lastName') lN: string,
-    @Body('email') email: string,
-    @Body('linkedinURL') linkedin: string,
-    @Body('twitterURL') twitter: string,
-    @Body('industries') ind: string[],
-    @Body('accelerators') acc: string[],
+    @Body() mentorData: MentorDTO
   ): Promise<any> {
-    await this.mentorService.modifyMentor(mentorId, fN, lN, email, linkedin, twitter, ind, acc);
+    await this.mentorService.modifyMentor(mentorId, mentorData.firstName,
+                                                    mentorData.lastName,
+                                                    mentorData.email,
+                                                    mentorData.linkedinURL,
+                                                    mentorData.twitterURL,
+                                                    mentorData.industries,
+                                                    mentorData.accelerators);
   }
 
   // TODO: add getByAccelerator, getByIndustry, getFirstMentors (for example, first three) requests
