@@ -11,6 +11,7 @@ dotenv.config({ path: './.env' });
 @Module({
   imports: [
     UsersModule, 
+    MentorsModule,
     AuthModule,
     MentorsModule,
     MongooseModule.forRoot(process.env.DATABASE_ACCESS)

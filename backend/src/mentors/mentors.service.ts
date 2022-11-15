@@ -24,14 +24,45 @@ export class MentorsService {
     return result.id as string;
   }
 
-  async getMentors() {
-    const mentors = await this.mentorModel.find().exec();
-    return mentors as Mentor[];
-  }
-
   async getSingleMentor(mentorId: string) {
     const mentor = await this.findMentor(mentorId);
     return mentor;
+  }
+
+  async getAllMentors(): Promise<any> {
+    const mentors = await this.mentorModel.find();
+    return mentors as Mentor[];
+  }
+
+  async getByAccelerator(accelerator: string): Promise<any> {
+    const mentors = await this.mentorModel.find();
+    const filteredMentors = new Array<Mentor>;
+    
+    mentors.forEach(element => {
+      if(element.accelerators.includes(accelerator)){
+        filteredMentors.push(element);
+      }
+    });
+
+    return filteredMentors;
+  }
+
+  async getByIndustry(industry: string): Promise<any>{
+    const mentors = await this.mentorModel.find().exec();
+    const filteredMentors = new Array<Mentor>;
+    
+    mentors.forEach(element => {
+      if(element.industries.includes(industry)){
+        filteredMentors.push(element);
+      }
+    });
+
+    return filteredMentors;
+  }
+
+  async getFirstMentors(limit: number): Promise<any>{
+    const firstMentors = await this.mentorModel.find().limit(limit);
+    return firstMentors;
   }
 
   async modifyMentor(
