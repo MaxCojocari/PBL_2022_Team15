@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsOptional, Length, IsArray } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
-export class MentorDTO{
+export class MentorDto{
 
     @IsString()
     @Length(2, 12)
@@ -41,4 +41,4 @@ export class MentorDTO{
     @ApiProperty({type: "array", required: true})
     public accelerators: string[];
 }
-export default MentorDTO;
+export default MentorDto;

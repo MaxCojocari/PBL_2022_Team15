@@ -14,7 +14,9 @@ import { Response } from 'express';
 import { SignUpDto } from './dto/signup.dto';
 import LogInDto from './dto/login.dto';
 import { User } from 'src/users/users.model';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(

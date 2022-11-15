@@ -1,13 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
-
 import { UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { MentorDTO } from "./dto/mentor.dto";
-import AccDTO from "./dto/acc.dto";
-import IndDTO from "./dto/ind.dto";
-import LimitDTO from "src/auth/dto/limit.dto";
+import { MentorDto } from "./dto/mentor.dto";
+import AccDto from "./dto/acc.dto";
+import IndDto from "./dto/ind.dto";
+import LimitDto from "src/mentors/dto/limit.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('mentors')
 @Controller('mentors')
 export class MentorsController {
 
@@ -15,7 +16,7 @@ export class MentorsController {
 
   @Post('/add')
   async addMentor(
-    @Body() mentorData: MentorDTO
+    @Body() mentorData: MentorDto
   ): Promise<{ id: string }> {
     const mentorId = await this.mentorService.insertMentor(mentorData.firstName,
                                                           mentorData.lastName,
@@ -35,7 +36,7 @@ export class MentorsController {
   @Patch('/update')
   async updateMentor(
     @Param('id') mentorId: string,
-    @Body() mentorData: MentorDTO
+    @Body() mentorData: MentorDto
   ): Promise<any> {
     await this.mentorService.modifyMentor(mentorId, mentorData.firstName,
                                                     mentorData.lastName,
@@ -60,19 +61,19 @@ export class MentorsController {
 
   @UseGuards(JwtAuthGuard)
   @Post('/acc')
-  async getByAcc(@Body() accDTO: AccDTO): Promise<any> {
+  async getByAcc(@Body() accDTO: AccDto): Promise<any> {
     return this.mentorService.getByAccelerator(accDTO.accName);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('/ind')
-  async getByInd(@Body() indDTO: IndDTO): Promise<any> {
+  async getByInd(@Body() indDTO: IndDto): Promise<any> {
     return this.mentorService.getByIndustry(indDTO.indName);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('/limit')
-  async getFirst(@Body() limitDTO: LimitDTO): Promise<any> {
+  async getFirst(@Body() limitDTO: LimitDto): Promise<any> {
     return this.mentorService.getFirstMentors(limitDTO.limitNumber);
   } 
 }
