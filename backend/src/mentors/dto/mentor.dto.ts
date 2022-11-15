@@ -33,3 +33,4 @@ export class MentorDTO{
     @IsNotEmpty()
     public accelerators: string[];
 }
+export default MentorDTO;
