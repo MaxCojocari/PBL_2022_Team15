@@ -42,7 +42,7 @@ export class MentorsController {
     return result;
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   async getMentors(): Promise<any> {
     return this.mentorService.getAllMentors();
