@@ -3,6 +3,7 @@ import { MentorsService } from "./mentors.service";
 import { UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { MentorDto } from "./dto/mentor.dto";
+import MentorUpdateDto from "./dto/mentor.update.dto";
 import AccDto from "./dto/acc.dto";
 import IndDto from "./dto/ind.dto";
 import LimitDto from "src/mentors/dto/limit.dto";
@@ -18,36 +19,24 @@ export class MentorsController {
   async addMentor(
     @Body() mentorData: MentorDto
   ): Promise<{ id: string }> {
-    const mentorId = await this.mentorService.insertMentor(mentorData.firstName,
-                                                          mentorData.lastName,
-                                                          mentorData.email,
-                                                          mentorData.linkedinURL,
-                                                          mentorData.twitterURL,
-                                                          mentorData.industries,
-                                                          mentorData.accelerators);
+    const mentorId = await this.mentorService.insertMentor(mentorData);
     return { id: mentorId };
   }
 
-  @Get('/getsingle')
+  @Get('/getsingle:id')
   getOneMentor(@Param('id') mentorId: string): any {
     return this.mentorService.getSingleMentor(mentorId);
   }
 
-  @Patch('/update')
+  @Patch('/update:id')
   async updateMentor(
     @Param('id') mentorId: string,
-    @Body() mentorData: MentorDto
+    @Body() mentorData: MentorUpdateDto
   ): Promise<any> {
-    await this.mentorService.modifyMentor(mentorId, mentorData.firstName,
-                                                    mentorData.lastName,
-                                                    mentorData.email,
-                                                    mentorData.linkedinURL,
-                                                    mentorData.twitterURL,
-                                                    mentorData.industries,
-                                                    mentorData.accelerators);
+    await this.mentorService.modifyMentor(mentorId, mentorData);
   }
 
-  @Delete('/delete')
+  @Delete('/delete:id')
   async removeMentor(@Param('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
     return result;

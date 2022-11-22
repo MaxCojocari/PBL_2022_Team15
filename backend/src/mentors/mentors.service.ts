@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import MentorDto from "./dto/mentor.dto";
+import MentorUpdateDto from "./dto/mentor.update.dto";
 import { Mentor } from "./mentor.model";
 
 @Injectable()
@@ -9,15 +11,15 @@ export class MentorsService {
   constructor(@InjectModel('Mentor') private readonly mentorModel: Model<Mentor>) {
   };
 
-  async insertMentor(fN: string, lN: string, email: string, linkedin: string, twitter: string, ind: string[], acc: string[]) {
+  async insertMentor(mentorData: MentorDto) {
     const newMentor = new this.mentorModel({
-      firstName: fN,
-      lastName: lN,
-      email,
-      linkedinURL: linkedin,
-      twitterURL: twitter,
-      industries: ind,
-      accelerators: acc
+      firstName: mentorData.firstName,
+      lastName: mentorData.lastName,
+      email: mentorData.email,
+      linkedinURL: mentorData.linkedinURL,
+      twitterURL: mentorData.twitterURL,
+      industries: mentorData.industries,
+      accelerators: mentorData.accelerators
     });
 
     const result = await newMentor.save();
@@ -67,42 +69,36 @@ export class MentorsService {
 
   async modifyMentor(
     mentorId: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    linkedinURL: string,
-    twitterURL: string,
-    industries: string[],
-    accelerators: string[]
+    mentorData: MentorUpdateDto
   ) {
     const updatedMentor = await this.findMentor(mentorId);
 
-    if (firstName) {
-      updatedMentor.firstName = firstName;
+    if (mentorData.firstName) {
+      updatedMentor.firstName = mentorData.firstName;
     }
 
-    if (lastName) {
-      updatedMentor.lastName = lastName;
+    if (mentorData.lastName) {
+      updatedMentor.lastName = mentorData.lastName;
     }
 
-    if (email) {
-      updatedMentor.email = email;
+    if (mentorData.email) {
+      updatedMentor.email = mentorData.email;
     }
 
-    if (linkedinURL) {
-      updatedMentor.linkedinURL = linkedinURL;
+    if (mentorData.linkedinURL) {
+      updatedMentor.linkedinURL = mentorData.linkedinURL;
     }
 
-    if (twitterURL) {
-      updatedMentor.twitterURL = twitterURL;
+    if (mentorData.twitterURL) {
+      updatedMentor.twitterURL = mentorData.twitterURL;
     }
 
-    if (industries) {
-      updatedMentor.industries = industries;
+    if (mentorData.industries) {
+      updatedMentor.industries = mentorData.industries;
     }
 
-    if (accelerators) {
-      updatedMentor.accelerators = accelerators;
+    if (mentorData.accelerators) {
+      updatedMentor.accelerators = mentorData.accelerators;
     }
 
     updatedMentor.save();
