@@ -4,8 +4,7 @@ import { UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { MentorDto } from "./dto/mentor.dto";
 import MentorUpdateDto from "./dto/mentor.update.dto";
-import AccDto from "./dto/acc.dto";
-import IndDto from "./dto/ind.dto";
+import AccDto, { TagDto } from "./dto/tag.dto";
 import LimitDto from "src/mentors/dto/limit.dto";
 import { ApiTags } from "@nestjs/swagger";
 
@@ -50,14 +49,8 @@ export class MentorsController {
 
   @UseGuards(JwtAuthGuard)
   @Post('/acc')
-  async getByAcc(@Body() accDTO: AccDto): Promise<any> {
-    return this.mentorService.getByAccelerator(accDTO.accName);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post('/ind')
-  async getByInd(@Body() indDTO: IndDto): Promise<any> {
-    return this.mentorService.getByIndustry(indDTO.indName);
+  async getByAcc(@Body() tagDto: TagDto): Promise<any> {
+    return this.mentorService.getByTag(tagDto.tagName);
   }
 
   @UseGuards(JwtAuthGuard)

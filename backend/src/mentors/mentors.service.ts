@@ -17,9 +17,10 @@ export class MentorsService {
       lastName: mentorData.lastName,
       email: mentorData.email,
       linkedinURL: mentorData.linkedinURL,
-      twitterURL: mentorData.twitterURL,
-      industries: mentorData.industries,
-      accelerators: mentorData.accelerators
+      bio: mentorData.bio,
+      job: mentorData.job,
+      company: mentorData.company,
+      tags: mentorData.tags
     });
 
     const result = await newMentor.save();
@@ -36,25 +37,12 @@ export class MentorsService {
     return mentors as Mentor[];
   }
 
-  async getByAccelerator(accelerator: string): Promise<any> {
+  async getByTag(tagName: string): Promise<any> {
     const mentors = await this.mentorModel.find();
     const filteredMentors = new Array<Mentor>;
     
     mentors.forEach(element => {
-      if(element.accelerators.includes(accelerator)){
-        filteredMentors.push(element);
-      }
-    });
-
-    return filteredMentors;
-  }
-
-  async getByIndustry(industry: string): Promise<any>{
-    const mentors = await this.mentorModel.find().exec();
-    const filteredMentors = new Array<Mentor>;
-    
-    mentors.forEach(element => {
-      if(element.industries.includes(industry)){
+      if(element.tags.includes(tagName)){
         filteredMentors.push(element);
       }
     });
@@ -89,16 +77,20 @@ export class MentorsService {
       updatedMentor.linkedinURL = mentorData.linkedinURL;
     }
 
-    if (mentorData.twitterURL) {
-      updatedMentor.twitterURL = mentorData.twitterURL;
+    if (mentorData.bio) {
+      updatedMentor.bio = mentorData.bio;
     }
 
-    if (mentorData.industries) {
-      updatedMentor.industries = mentorData.industries;
+    if (mentorData.job) {
+      updatedMentor.job = mentorData.job;
     }
 
-    if (mentorData.accelerators) {
-      updatedMentor.accelerators = mentorData.accelerators;
+    if (mentorData.company) {
+      updatedMentor.company = mentorData.company;
+    }
+
+    if (mentorData.tags) {
+      updatedMentor.tags = mentorData.tags;
     }
 
     updatedMentor.save();

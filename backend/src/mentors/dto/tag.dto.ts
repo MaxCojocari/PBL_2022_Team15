@@ -1,11 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, Length } from "class-validator";
 
-export class IndDto{
+export class TagDto{
 
     @IsString()
-    @Length(3, 15)
     @ApiProperty({type: "string", maxLength: 255, required: true})
-    readonly indName: string;
+    readonly tagName: string;
 }
-export default IndDto;
+export default TagDto;
