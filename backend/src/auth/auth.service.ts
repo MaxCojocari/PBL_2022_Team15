@@ -32,8 +32,8 @@ export class AuthService {
     const user = await this.usersService.getByEmail(email);
     const payload = { userId: user._id };
     const token = this.jwtService.sign(payload);
-    //return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXPIRATION_TIME')}`;
-    return token;
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXPIRATION_TIME')}`;
+    //return token;
   }
 
   getCookieForLogOut(): string {
