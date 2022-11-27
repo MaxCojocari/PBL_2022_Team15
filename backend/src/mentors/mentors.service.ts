@@ -38,11 +38,12 @@ export class MentorsService {
   }
 
   async getByTag(tagName: string): Promise<any> {
+    console.log("getByTag");
     const mentors = await this.mentorModel.find();
     const filteredMentors = new Array<Mentor>;
-    
+
     mentors.forEach(element => {
-      if(element.tags.includes(tagName)){
+      if (element.tags.includes(tagName)) {
         filteredMentors.push(element);
       }
     });
@@ -50,7 +51,8 @@ export class MentorsService {
     return filteredMentors;
   }
 
-  async getFirstMentors(limit: number): Promise<any>{
+  async getFirstMentors(limit: number): Promise<any> {
+    console.log("getFirstMentors");
     const firstMentors = await this.mentorModel.find().limit(limit);
     return firstMentors;
   }
@@ -106,15 +108,16 @@ export class MentorsService {
   }
 
   private async findMentor(id: string): Promise<Mentor> {
+    console.log("findMentor")
     let mentor;
     try {
       mentor = await this.mentorModel.findById(id);
     } catch (error) {
-      throw new NotFoundException('Could not find mentor');
+      throw new NotFoundException('Could not find mentor findMentor');
     }
 
     if (!mentor) {
-      throw new NotFoundException('Could not find mentor');
+      throw new NotFoundException('Could not find mentor findMentor');
     }
 
     return mentor;
