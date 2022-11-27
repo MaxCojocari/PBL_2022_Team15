@@ -6,7 +6,7 @@ import { MentorDto } from "./dto/mentor.dto";
 import MentorUpdateDto from "./dto/mentor.update.dto";
 import { TagDto } from "./dto/tag.dto";
 import LimitDto from "src/mentors/dto/limit.dto";
-import { ApiBearerAuth, ApiHeader, ApiTags } from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 
 @ApiTags('mentors')
 @Controller('mentors')
@@ -34,7 +34,7 @@ export class MentorsController {
   ): Promise<any> {
     await this.mentorService.modifyMentor(mentorId, mentorData);
   }
-
+  
   @Delete()
   async removeMentor(@Query('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
@@ -55,6 +55,7 @@ export class MentorsController {
   @UseGuards(JwtAuthGuard)
   @Get('/limit')
   async getFirst(@Query() limitDTO: LimitDto): Promise<any> {
+    console.log('was here');
     return this.mentorService.getFirstMentors(limitDTO.limitNumber);
   } 
 }
