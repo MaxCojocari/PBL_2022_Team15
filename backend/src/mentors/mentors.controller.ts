@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
 import { UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -41,21 +41,33 @@ export class MentorsController {
     return result;
   }
 
-  @Get()
+  @Get('/all')
   async getMentors(): Promise<any> {
     return this.mentorService.getAllMentors();
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('/tag')
-  async getByTag(@Query() tagDto: TagDto): Promise<any> {
-    return this.mentorService.getByTag(tagDto.tagName);
+  @Get('/limit')
+  async getLimitNrMentors(): Promise<any> {
+    return this.mentorService.getFirstMentors(4);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('/limit')
-  async getFirst(@Query() limitDTO: LimitDto): Promise<any> {
-    console.log('was here');
-    return this.mentorService.getFirstMentors(limitDTO.limitNumber);
-  } 
+  // @UseGuards(JwtAuthGuard)
+  // @Get("/tag")
+  // async getByTag(@Query() tagDto: TagDto): Promise<any> {
+  //   return this.mentorService.getByTag(tagDto.tagName);
+  // }
+
+  // @Get("/limit")
+  // async getFirst(@Query() limitDTO: LimitDto): Promise<any> {
+  //   return this.mentorService.getFirstMentors(limitDTO.limitNumber);
+  // }
+  // @UseGuards(JwtAuthGuard)
+  @Get()
+  async getMentorsByParam(@Query() query): Promise<any> {
+    console.log(query);
+    if (query.tagName) {
+      return this.mentorService.getByTag(query.tagName);
+    }
+    // return this.mentorService.getFirstMentors(limitDTO.limitNumber);
+  }
 }
