@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
 import { UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { MentorDto } from "./dto/mentor.dto";
 import MentorUpdateDto from "./dto/mentor.update.dto";
 import { TagDto } from "./dto/tag.dto";
@@ -34,7 +33,7 @@ export class MentorsController {
   ): Promise<any> {
     await this.mentorService.modifyMentor(mentorId, mentorData);
   }
-  
+
   @Delete()
   async removeMentor(@Query('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
