@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
 import { UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { MentorDto } from "./dto/mentor.dto";
 import MentorUpdateDto from "./dto/mentor.update.dto";
 import AccDto from "./dto/acc.dto";
 import IndDto from "./dto/ind.dto";
 import LimitDto from "src/mentors/dto/limit.dto";
 import { ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags('mentors')
 @Controller('mentors')
@@ -48,21 +48,21 @@ export class MentorsController {
     return this.mentorService.getAllMentors();
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard('jwt'))
   @Post('/acc')
   async getByAcc(@Body() accDTO: AccDto): Promise<any> {
     return this.mentorService.getByAccelerator(accDTO.accName);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard('jwt'))
   @Post('/ind')
   async getByInd(@Body() indDTO: IndDto): Promise<any> {
     return this.mentorService.getByIndustry(indDTO.indName);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard('jwt'))
   @Post('/limit')
   async getFirst(@Body() limitDTO: LimitDto): Promise<any> {
     return this.mentorService.getFirstMentors(limitDTO.limitNumber);
-  } 
+  }
 }

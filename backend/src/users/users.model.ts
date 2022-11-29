@@ -1,11 +1,11 @@
 import * as mongoose from "mongoose";
 
 export const UserSchema = new mongoose.Schema({
-  surname: {
+  first_name: {
     type: String,
     required: true
   },
-  name: {
+  last_name: {
     type: String,
     required: true
   },
@@ -22,8 +22,8 @@ export const UserSchema = new mongoose.Schema({
 });
 
 export interface User extends mongoose.Document {
-  surname: string;
-  name: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
 }
