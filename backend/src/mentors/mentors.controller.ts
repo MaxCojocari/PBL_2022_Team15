@@ -1,13 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from "@nestjs/common";
 import { MentorsService } from "./mentors.service";
 import { UseGuards } from "@nestjs/common";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { MentorDto } from "./dto/mentor.dto";
 import MentorUpdateDto from "./dto/mentor.update.dto";
-import AccDto from "./dto/acc.dto";
-import IndDto from "./dto/ind.dto";
+import { TagDto } from "./dto/tag.dto";
 import LimitDto from "src/mentors/dto/limit.dto";
 import { ApiTags } from "@nestjs/swagger";
-import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags('mentors')
 @Controller('mentors')
@@ -15,7 +14,7 @@ export class MentorsController {
 
   constructor(private readonly mentorService: MentorsService) { }
 
-  @Post('/add')
+  @Post()
   async addMentor(
     @Body() mentorData: MentorDto
   ): Promise<{ id: string }> {
@@ -23,46 +22,40 @@ export class MentorsController {
     return { id: mentorId };
   }
 
-  @Get('/getsingle:id')
-  getOneMentor(@Param('id') mentorId: string): any {
+  @Get('/:id')
+  getOneMentor(@Query('id') mentorId: string): any {
     return this.mentorService.getSingleMentor(mentorId);
   }
 
-  @Patch('/update:id')
+  @Patch()
   async updateMentor(
-    @Param('id') mentorId: string,
+    @Query('id') mentorId: string,
     @Body() mentorData: MentorUpdateDto
   ): Promise<any> {
     await this.mentorService.modifyMentor(mentorId, mentorData);
   }
-
-  @Delete('/delete:id')
-  async removeMentor(@Param('id') mentorId: string): Promise<any> {
+  
+  @Delete()
+  async removeMentor(@Query('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
     return result;
   }
 
-  // @UseGuards(JwtAuthGuard)
-  @Get()
+  @Get('/all')
   async getMentors(): Promise<any> {
     return this.mentorService.getAllMentors();
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/acc')
-  async getByAcc(@Body() accDTO: AccDto): Promise<any> {
-    return this.mentorService.getByAccelerator(accDTO.accName);
+  @Get('/limit')
+  async getLimitNrMentors(): Promise<any> {
+    return this.mentorService.getFirstMentors(4);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/ind')
-  async getByInd(@Body() indDTO: IndDto): Promise<any> {
-    return this.mentorService.getByIndustry(indDTO.indName);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/limit')
-  async getFirst(@Body() limitDTO: LimitDto): Promise<any> {
-    return this.mentorService.getFirstMentors(limitDTO.limitNumber);
+  @Get()
+  async getMentorsByParam(@Query() query): Promise<any> {
+    console.log(query);
+    if (query.tagName) {
+      return this.mentorService.getByTag(query.tagName);
+    }
   }
 }

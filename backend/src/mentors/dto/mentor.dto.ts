@@ -21,24 +21,25 @@ export class MentorDto{
     public email: string;
     
     @IsString()
-    @IsNotEmpty()
-    @ApiProperty({type: "string", maxLength: 255, required: true})
+    @ApiProperty({type: "string", maxLength: 255})
     public linkedinURL: string;
     
     @IsString()
     @IsNotEmpty()
-    @IsOptional()
-    @ApiProperty({type: "string", maxLength: 255, required: true})
-    public twitterURL: string;
+    @ApiProperty({type: "string", required: true})
+    public bio: string;
     
-    @IsArray()
+    @IsString()
     @IsNotEmpty()
-    @ApiProperty({type: "array", required: true})
-    public industries: string[];
+    @ApiProperty({type: "string", required: true})
+    public job: string;
+
+    @IsString()
+    @ApiProperty({type: "string"})
+    public company: string;
     
-    @IsArray()
     @IsNotEmpty()
-    @ApiProperty({type: "array", required: true})
-    public accelerators: string[];
+    @ApiProperty({isArray: true, type: "string", required: true})
+    public tags: string[];
 }
 export default MentorDto;

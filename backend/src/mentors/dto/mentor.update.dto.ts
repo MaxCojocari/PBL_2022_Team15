@@ -26,16 +26,20 @@ export class MentorUpdateDto{
     @IsString()
     @IsOptional()
     @ApiProperty({type: "string"})
-    public twitterURL: string;
+    public bio: string;
     
-    @IsArray()
+    @IsString()
     @IsOptional()
-    @ApiProperty({type: "array"})
-    public industries: string[];
+    @ApiProperty({type: "string"})
+    public job: string;
+
+    @IsString()
+    @IsOptional()
+    @ApiProperty({type: "string"})
+    public company: string;
     
-    @IsArray()
     @IsOptional()
-    @ApiProperty({type: "array"})
-    public accelerators: string[];
+    @ApiProperty({isArray: true, type: "string"})
+    public tags: string[];
 }
 export default MentorUpdateDto;
