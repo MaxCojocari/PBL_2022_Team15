@@ -51,23 +51,11 @@ export class MentorsController {
     return this.mentorService.getFirstMentors(4);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Get("/tag")
-  // async getByTag(@Query() tagDto: TagDto): Promise<any> {
-  //   return this.mentorService.getByTag(tagDto.tagName);
-  // }
-
-  // @Get("/limit")
-  // async getFirst(@Query() limitDTO: LimitDto): Promise<any> {
-  //   return this.mentorService.getFirstMentors(limitDTO.limitNumber);
-  // }
-  // @UseGuards(JwtAuthGuard)
   @Get()
   async getMentorsByParam(@Query() query): Promise<any> {
     console.log(query);
     if (query.tagName) {
       return this.mentorService.getByTag(query.tagName);
     }
-    // return this.mentorService.getFirstMentors(limitDTO.limitNumber);
   }
 }
