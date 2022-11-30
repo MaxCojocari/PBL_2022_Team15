@@ -24,7 +24,7 @@ export class MentorsController {
     return { id: mentorId };
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get('/all')
   async getMentors(): Promise<any> {
     // console.log(user)
