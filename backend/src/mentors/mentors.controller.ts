@@ -6,6 +6,9 @@ import MentorUpdateDto from "./dto/mentor.update.dto";
 import { TagDto } from "./dto/tag.dto";
 import LimitDto from "src/mentors/dto/limit.dto";
 import { ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "@nestjs/passport";
+import { AuthUser } from "../decorators";
+
 
 @ApiTags('mentors')
 @Controller('mentors')
@@ -21,8 +24,20 @@ export class MentorsController {
     return { id: mentorId };
   }
 
+  // @UseGuards(AuthGuard('jwt'))
+  @Get('/all')
+  async getMentors(): Promise<any> {
+    // console.log(user)
+    return this.mentorService.getAllMentors();
+  }
+
+  @Get('/limit')
+  async getLimitNrMentors(): Promise<any> {
+    return this.mentorService.getFirstMentors(4);
+  }
+
   @Get('/:id')
-  getOneMentor(@Query('id') mentorId: string): any {
+  getOneMentor(@Param('id') mentorId: string): any {
     return this.mentorService.getSingleMentor(mentorId);
   }
 
@@ -38,16 +53,6 @@ export class MentorsController {
   async removeMentor(@Query('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
     return result;
-  }
-
-  @Get('/all')
-  async getMentors(): Promise<any> {
-    return this.mentorService.getAllMentors();
-  }
-
-  @Get('/limit')
-  async getLimitNrMentors(): Promise<any> {
-    return this.mentorService.getFirstMentors(4);
   }
 
   @Get()
