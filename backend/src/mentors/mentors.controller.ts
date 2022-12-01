@@ -55,6 +55,11 @@ export class MentorsController {
     return result;
   }
 
+  @Post('/search')
+  async searchMentors(@Body() searchData) : Promise<any> {
+    console.log(searchData)
+  }
+
   @Get()
   async getMentorsByParam(@Query() query): Promise<any> {
     console.log(query);
