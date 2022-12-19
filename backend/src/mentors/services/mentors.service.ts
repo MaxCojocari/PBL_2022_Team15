@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import MentorDto from "./dto/mentor.dto";
-import MentorUpdateDto from "./dto/mentor.update.dto";
-import { Mentor } from "./mentor.model";
+import MentorDto from "../dto/mentor.dto";
+import MentorUpdateDto from "../dto/mentor.update.dto";
+import { Mentor } from "../mentor.model";
 
 @Injectable()
 export class MentorsService {
@@ -37,22 +37,22 @@ export class MentorsService {
     return mentors as Mentor[];
   }
 
-  async getByTag(tagName: string): Promise<any> {
-    console.log("getByTag");
+  async getByTag(tags: Array<string>): Promise<any> {
     const mentors = await this.mentorModel.find();
     const filteredMentors = new Array<Mentor>;
 
     mentors.forEach(element => {
-      if (element.tags.includes(tagName)) {
-        filteredMentors.push(element);
+      let includes = true;
+      for (const t of tags) {
+        includes = includes && element.tags.includes(t);
       }
+      if (includes) filteredMentors.push(element);
     });
 
     return filteredMentors;
   }
 
   async getFirstMentors(limit: number): Promise<any> {
-    console.log("getFirstMentors");
     const firstMentors = await this.mentorModel.find().limit(limit);
     return firstMentors;
   }
@@ -108,7 +108,6 @@ export class MentorsService {
   }
 
   private async findMentor(id: string): Promise<Mentor> {
-    console.log("findMentor")
     let mentor;
     try {
       mentor = await this.mentorModel.findById(id);
