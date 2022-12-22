@@ -34,6 +34,12 @@ export class MentorsController {
   }
 
   // @UseGuards(AuthGuard('jwt'))
+  @Get()
+  getOneMentor(@Query('id') mentorId: string): any {
+    return this.mentorService.getSingleMentor(mentorId);
+  }
+
+  // @UseGuards(AuthGuard('jwt'))
   @Get('/all')
   async getMentors(): Promise<any> {
     return this.mentorService.getAllMentors();
@@ -42,12 +48,6 @@ export class MentorsController {
   @Get('/limit')
   async getLimitNrMentors(): Promise<any> {
     return this.mentorService.getFirstMentors(4);
-  }
-
-  // @UseGuards(AuthGuard('jwt'))
-  @Get('/:id')
-  getOneMentor(@Param('id') mentorId: string): any {
-    return this.mentorService.getSingleMentor(mentorId);
   }
 
   // @UseGuards(AuthGuard('jwt'))

@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MentorsModule } from './mentors/mentors.module';
 import * as Joi from '@hapi/joi';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import * as Joi from '@hapi/joi';
     UsersModule, 
     MentorsModule,
     AuthModule,
-    MentorsModule,
+    MailModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
