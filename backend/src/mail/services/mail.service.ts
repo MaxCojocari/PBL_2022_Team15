@@ -11,9 +11,10 @@ export class MailService{
           .mailerService
           .sendMail({
             to: 'dreamups@outlook.com',
-            from: senderData.email,
+            from: "qa.dreamups@outlook.com",
             sender: senderData.firstName + ' ' + senderData.lastName,
-            text: senderData.msg,
+            text: senderData.email + "\n" + senderData.msg,
+            subject: "Dreamups Q/A"
           })
            .then((success) => {
             console.log(success)
