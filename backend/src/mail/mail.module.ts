@@ -9,10 +9,10 @@ import { MailService } from './services/mail.service';
     ConfigModule.forRoot(),
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.sendgrid.net',
+        host: 'in-v3.mailjet.com',
         auth: {
-          user: 'apikey',
-          pass: process.env.API_KEY,
+          user: process.env.API_KEY,
+          pass: process.env.SECRET_KEY,
         },
       },
       defaults: {
