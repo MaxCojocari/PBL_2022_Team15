@@ -13,7 +13,7 @@ export class MailService{
             to: 'dreamups@outlook.com',
             from: "qa.dreamups@outlook.com",
             sender: senderData.firstName + ' ' + senderData.lastName,
-            text: senderData.email + "\n" + senderData.msg,
+            text: "Question sent from: " + senderData.email + "\n" + senderData.msg,
             subject: "Dreamups Q/A"
           })
            .then((success) => {
