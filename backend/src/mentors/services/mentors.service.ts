@@ -20,7 +20,8 @@ export class MentorsService {
       bio: mentorData.bio,
       job: mentorData.job,
       company: mentorData.company,
-      tags: mentorData.tags
+      tags: mentorData.tags,
+      timestampAdded: mentorData.timestampAdded
     });
 
     const result = await newMentor.save();
@@ -120,5 +121,9 @@ export class MentorsService {
     }
 
     return mentor;
+  }
+
+  async getRecentlyAdded(limit: number): Promise<any> {
+
   }
 }

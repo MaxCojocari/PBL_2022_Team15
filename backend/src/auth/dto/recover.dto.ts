@@ -1,7 +1,7 @@
 import { IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class LoginDto {
+export class RecoverDto {
   @IsString()
   @Length(1, 255)
   @ApiProperty({ type: 'string', maxLength: 255 })
@@ -13,7 +13,7 @@ export class LoginDto {
   readonly password: string;
 }
 
-export class LoginResponseDto {
+export class RecoverResponseDto {
   @ApiProperty({ type: 'string', maxLength: 255 })
   token: string;
 }

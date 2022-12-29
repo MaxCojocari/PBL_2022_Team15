@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegisterDto {
@@ -15,10 +15,12 @@ export class RegisterDto {
   public readonly email: string;
 
   @IsString()
+  @Length(8, 255)
   @ApiProperty({ type: 'string', maxLength: 255 })
   public readonly password: string;
 
   @IsString()
+  @Length(8, 255)
   @ApiProperty({ type: 'string', maxLength: 255 })
   public readonly password_confirmation: string;
 }

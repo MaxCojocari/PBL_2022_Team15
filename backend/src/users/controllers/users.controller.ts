@@ -33,9 +33,7 @@ import { AuthUser } from "src/decorators";
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
-
-
+  constructor(private readonly usersService: UsersService) { }
 
   @Get('/authenticated-user')
   async getAuthenticatedUser(@AuthUser() user): Promise<User> {

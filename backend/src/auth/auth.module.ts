@@ -7,6 +7,7 @@ import { JwtStrategy } from './strategies';
 import { LoginController } from "./controllers/login.controller";
 import { RegisterController } from "./controllers/register.controller";
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { RecoverController } from './controllers/recover.controller';
 
 @Module({
   imports: [
@@ -27,9 +28,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       })
     })
   ],
-  controllers: [RegisterController, LoginController],
+  controllers: [RegisterController, LoginController, RecoverController],
   providers: [AuthService, JwtStrategy],
   exports: [AuthService]
 })
 
-export class AuthModule {}
+export class AuthModule { }
