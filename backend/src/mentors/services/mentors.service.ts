@@ -122,8 +122,4 @@ export class MentorsService {
 
     return mentor;
   }
-
-  async getRecentlyAdded(limit: number): Promise<any> {
-
-  }
 }

@@ -6,8 +6,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MentorsModule } from './mentors/mentors.module';
-import * as Joi from '@hapi/joi';
 import { MailModule } from './mail/mail.module';
+import * as Joi from '@hapi/joi';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { MailModule } from './mail/mail.module';
         JWT_EXPIRATION_TIME: Joi.string().required()
       })
     }),
-    UsersModule, 
+    UsersModule,
     MentorsModule,
     AuthModule,
     MailModule,
@@ -32,4 +32,4 @@ import { MailModule } from './mail/mail.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

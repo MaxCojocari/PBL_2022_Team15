@@ -4,10 +4,8 @@ import { UseGuards } from "@nestjs/common";
 import { MentorDto } from "../dto/mentor.dto";
 import MentorUpdateDto from "../dto/mentor.update.dto";
 import { TagDto } from "../dto/tag.dto";
-import LimitDto from "src/mentors/dto/limit.dto";
 import { ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
-import { AuthUser } from "../../decorators";
 
 
 @ApiTags('mentors')
@@ -24,22 +22,19 @@ export class MentorsController {
     return { id: mentorId };
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Post('/search')
   async getMentorsByParam(@Body() req: TagDto): Promise<any> {
-    // console.log(req);
-    // console.log(await this.mentorService.getByTag(req.tags));
-
     return this.mentorService.getByTag(req.tags);
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   getOneMentor(@Query('id') mentorId: string): any {
     return this.mentorService.getSingleMentor(mentorId);
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Get('/all')
   async getMentors(): Promise<any> {
     return this.mentorService.getAllMentors();
@@ -50,7 +45,7 @@ export class MentorsController {
     return this.mentorService.getFirstMentors(4);
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Patch()
   async updateMentor(
     @Query('id') mentorId: string,
@@ -59,7 +54,7 @@ export class MentorsController {
     await this.mentorService.modifyMentor(mentorId, mentorData);
   }
 
-  // @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'))
   @Delete()
   async removeMentor(@Query('id') mentorId: string): Promise<any> {
     const result = await this.mentorService.deleteMentor(mentorId);
