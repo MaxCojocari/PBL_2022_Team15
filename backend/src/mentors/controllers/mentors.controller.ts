@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Req, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Query } from "@nestjs/common";
 import { MentorsService } from "../services/mentors.service";
 import { UseGuards } from "@nestjs/common";
 import { MentorDto } from "../dto/mentor.dto";

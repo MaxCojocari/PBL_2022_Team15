@@ -1,25 +1,13 @@
 import {
   Controller,
   Get,
-  Post,
-  Body /*, Patch*/,
-  Param,
   UseGuards,
-  HttpCode,
-  HttpStatus,
-  Put,
-  ParseIntPipe,
   NotFoundException /*, Delete*/,
 } from '@nestjs/common';
+
 import {
-  ApiForbiddenResponse,
   ApiHeader,
-  ApiNoContentResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiParam,
-  ApiTags,
-  ApiUnauthorizedResponse,
+  ApiTags
 } from '@nestjs/swagger';
 
 import { UsersService } from '../services/users.service';

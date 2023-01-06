@@ -5,7 +5,7 @@ import SenderDto from "../dto/sender.dto";
 import { MailService } from "../services/mail.service";
 
 @Controller('mail')
-export class MailController{
+export class MailController {
     constructor(private readonly mailService: MailService) { }
 
     @Post()
