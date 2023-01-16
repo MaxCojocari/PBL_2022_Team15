@@ -10,7 +10,7 @@ export class MailService{
         this
           .mailerService
           .sendMail({
-            to: 'dreamups@outlook.com',
+            to: 'help.dreamups@outlook.com',
             from: "qa.dreamups@outlook.com",
             sender: senderData.firstName + ' ' + senderData.lastName,
             text: "Question sent from: " + senderData.email + "\n" + senderData.msg,
