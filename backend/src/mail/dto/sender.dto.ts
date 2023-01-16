@@ -21,6 +21,11 @@ export class SenderDto{
     @Length(3, 250)
     @IsNotEmpty()
     public msg: string;
+
+    @IsString()
+    @Length(3, 250)
+    @IsNotEmpty()
+    public topic: string;
 }
 
 export default SenderDto;
