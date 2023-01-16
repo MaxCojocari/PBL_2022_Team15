@@ -14,7 +14,7 @@ export class MailService{
             from: "qa.dreamups@outlook.com",
             sender: senderData.firstName + ' ' + senderData.lastName,
             text: "Question sent from: " + senderData.email + "\n" + senderData.msg,
-            subject: "Dreamups Q/A"
+            subject: senderData.topic
           })
            .then((success) => {
             console.log(success)
